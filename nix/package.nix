@@ -83,7 +83,7 @@ buildGoModule rec {
 
   meta = {
     description = "Ryoku-native application marketplace";
-    homepage = "https://github.com/aethctl/ryomarket";
+    homepage = "https://github.com/Ryoku-dev/ryomarket";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     mainProgram = "ryomarket";

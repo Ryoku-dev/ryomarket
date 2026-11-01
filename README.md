@@ -9,19 +9,19 @@ Discover curated applications, explore the full catalogue, compare installation 
 ## Run
 
 ```sh
-nix run github:aethctl/ryomarket
+nix run github:Ryoku-dev/ryomarket
 ```
 
 Install RyoMarket persistently:
 
 ```sh
-nix profile add github:aethctl/ryomarket
+nix profile add github:Ryoku-dev/ryomarket
 ```
 
 Then run `ryomarket` or open RyoMarket from your application launcher. Nix must have `nix-command` and `flakes` enabled. For a one-off launch without changing Nix settings:
 
 ```sh
-nix --extra-experimental-features 'nix-command flakes' run github:aethctl/ryomarket
+nix --extra-experimental-features 'nix-command flakes' run github:Ryoku-dev/ryomarket
 ```
 
 ## Ryoku applications
@@ -39,16 +39,16 @@ Each listing offers:
 For a one-command application installation:
 
 ```sh
-nix run github:aethctl/ryomarket#install-ryotunes
+nix run github:Ryoku-dev/ryomarket#install-ryotunes
 ```
 
 Replace `ryotunes` with `ryomanager`, `ryostore`, `ryomotion`, `rashin` or `ryoport`. To remove that managed installation:
 
 ```sh
-nix run github:aethctl/ryomarket#install-ryotunes -- --remove
+nix run github:Ryoku-dev/ryomarket#install-ryotunes -- --remove
 ```
 
-`nix run github:aethctl/ryomarket#ryotunes` launches the standalone package without persistently installing it.
+`nix run github:Ryoku-dev/ryomarket#ryotunes` launches the standalone package without persistently installing it.
 
 The Ryotunes and Rashin launchers start their bundled backends when needed. Spotify requires sign-in and the optional Soloist setup. Rashin needs a configured model provider. VM permissions, GPU passthrough and remote credentials remain explicit system or user choices.
 
@@ -57,7 +57,7 @@ The Ryotunes and Rashin launchers start their bundled backends when needed. Spot
 Add the flake input:
 
 ```nix
-inputs.ryomarket.url = "github:aethctl/ryomarket";
+inputs.ryomarket.url = "github:Ryoku-dev/ryomarket";
 ```
 
 Import `ryomarket.nixosModules.default` in your `nixosSystem.modules` list, then set:

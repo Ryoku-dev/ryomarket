@@ -26,7 +26,7 @@ For optional applications, use the corresponding package output in the module th
 
 ## Managed flake installs
 
-`nix run github:aethctl/ryomarket#install-<name>` creates a separate profile generation under `$XDG_STATE_HOME/ryomarket/flake-apps/<name>`. It builds before publishing the active generation, then registers desktop and command links. Existing unrelated files are never overwritten. `-- --remove` removes only the managed installation, retaining the application's own data.
+`nix run github:Ryoku-dev/ryomarket#install-<name>` creates a separate profile generation under `$XDG_STATE_HOME/ryomarket/flake-apps/<name>`. It builds before publishing the active generation, then registers desktop and command links. Existing unrelated files are never overwritten. `-- --remove` removes only the managed installation, retaining the application's own data.
 
 The packaged client retains an immutable source snapshot and hash. Its installer plans therefore use the exact recipes shipped with that client rather than following a mutable branch. Reinstall/update can select the source provided by a newer marketplace build. No system rebuild is involved.
 
