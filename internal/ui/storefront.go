@@ -11,6 +11,7 @@ import (
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
+	"github.com/Ryoku-dev/ryomarket/internal/catalog"
 	"github.com/Ryoku-dev/ryomarket/internal/model"
 	"image"
 	"image/color"
@@ -54,6 +55,19 @@ func (a *App) curatedApps(ids []string) []model.Application {
 	return apps
 }
 
+func ryokuCollection() (string, []string) {
+	title := "From Ryoku"
+	if catalog.Edition() == catalog.EditionHyperion {
+		title = "From Ryoku Hyperion"
+	}
+	apps := catalog.RyokuApplications()
+	ids := make([]string, 0, len(apps))
+	for _, app := range apps {
+		ids = append(ids, app.ID)
+	}
+	return title, ids
+}
+
 func (a *App) featuredApplications() []model.Application {
 	return a.curatedApps([]string{"ryoku:ryotunes", "ryoku:ryomanager", "blender", "gimp"})
 }
@@ -78,7 +92,8 @@ func (a *App) editorialStorefront(gtx layout.Context) layout.Dimensions {
 	sections := []layout.Widget{
 		a.collectionFeature,
 		func(gtx layout.Context) layout.Dimensions {
-			return a.discoveryCollection(gtx, "From Ryoku", []string{"ryoku:ryotunes", "ryoku:ryomanager", "ryoku:ryostore", "ryoku:ryomotion", "ryoku:rashin", "ryoku:ryoport"}, false)
+			title, ids := ryokuCollection()
+			return a.discoveryCollection(gtx, title, ids, false)
 		},
 		func(gtx layout.Context) layout.Dimensions {
 			return a.discoveryCollection(gtx, "Creative tools", []string{"krita", "inkscape", "kdenlive", "obs-studio", "audacity", "io.github.mifi.losslesscut"}, false)

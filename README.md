@@ -52,6 +52,10 @@ nix run github:Ryoku-dev/ryomarket#install-ryotunes -- --remove
 
 The Ryotunes and Rashin launchers start their bundled backends when needed. Spotify requires sign-in and the optional Soloist setup. Rashin needs a configured model provider. VM permissions, GPU passthrough and remote credentials remain explicit system or user choices.
 
+### Hyperion v2 edition
+
+Run with `RYOMARKET_EDITION=hyperion` (or set `programs.ryomarket.edition = "hyperion";`) to switch the Ryoku section to the Hyperion v2 packages from `github:Ryoku-dev/Ryoku-on-NixOS/feature/hyperion-v2-nixos`: Ryotunes, RyoStore, Ryoport, RyoManager, RyoMotion and Rashin. These install through your Nix profile only; the bundled installers and legacy RyotunesNix packages are not offered. Ryogami stays part of the Hyperion core.
+
 ## NixOS configuration
 
 Add the flake input:
