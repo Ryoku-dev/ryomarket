@@ -33,9 +33,18 @@ var ryokuEntries = []ryokuEntry{
 	{"ryoport", "Ryoport", "Your virtual machines and remote hosts, together.", "Monitor local VMs, manage remote servers and access SSH connections from a single fleet dashboard.", "https://github.com/Ryoku-dev/ryoku"},
 }
 
-// hyperionOutputs lists the optional packages.x86_64-linux outputs of HyperionFlakeRef.
-// Ryogami is part of the Hyperion core and is intentionally absent.
-var hyperionOutputs = []string{"ryotunes", "ryostore", "ryoport", "ryomanager", "ryomotion", "rashin"}
+// hyperionOutputs lists the packages.x86_64-linux outputs of HyperionFlakeRef that
+// Hyperion treats as optional, matching Arch Hyperion: Ryotunes and Ryoport (their
+// own release lines), and the ryoku-desktop optdepends RyoManager, waifu2x and
+// qmk-hid. Ryogami, the shell and RyoStore are core and stay with the system;
+// RyoMotion is retired.
+var hyperionOutputs = []string{"ryotunes", "ryoport", "ryomanager", "waifu2x-ncnn-vulkan", "qmk-hid"}
+
+// hyperionOnlyEntries are optional Hyperion packages without a default-edition recipe.
+var hyperionOnlyEntries = []ryokuEntry{
+	{"waifu2x-ncnn-vulkan", "waifu2x", "Sharper screenshots and wallpapers.", "The GPU upscaler behind Ryoshot's Beautify HD export and Ryowalls' Enhance.", hyperionHomepage},
+	{"qmk-hid", "QMK HID", "Talk to your QMK keyboard.", "The command-line tool Ryoku uses to reach QMK keyboards over HID for lighting and layers.", hyperionHomepage},
+}
 
 func RyokuApplications() []model.Application {
 	if Edition() == EditionHyperion {
@@ -81,8 +90,8 @@ func ryokuNotes(id string) string {
 
 // hyperionApplications installs only through nix profile, the one transaction that honours FlakeRef.
 func hyperionApplications() []model.Application {
-	byID := make(map[string]ryokuEntry, len(ryokuEntries))
-	for _, e := range ryokuEntries {
+	byID := make(map[string]ryokuEntry, len(ryokuEntries)+len(hyperionOnlyEntries))
+	for _, e := range append(append([]ryokuEntry{}, ryokuEntries...), hyperionOnlyEntries...) {
 		byID[e.id] = e
 	}
 	apps := make([]model.Application, 0, len(hyperionOutputs))
@@ -91,7 +100,7 @@ func hyperionApplications() []model.Application {
 		notes := ryokuNotes(id)
 		if id == "ryotunes" {
 			e.summary = "Your music, in the Hyperion desktop."
-			e.description = "The Ryotunes QML launcher built for Ryoku Hyperion v2, packaged from the Hyperion NixOS flake."
+			e.description = "Ryotunes 2.0, Ryoku's native Lithic music player: local library, streaming services, lyrics and visualizers. Your 1.x library, settings and sign-ins carry over."
 			notes = ""
 		}
 		app := model.Application{ID: "ryoku:" + id, Name: e.name, Summary: e.summary, Description: e.description, Developer: "Ryoku", Homepage: hyperionHomepage, Categories: []string{"Ryoku"}, Ecosystem: &model.EcosystemInfo{Status: "Upcoming", Reason: "Hyperion packages currently target x86_64-linux.", PackageOutput: "packages.x86_64-linux." + id}}

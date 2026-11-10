@@ -54,7 +54,7 @@ The Ryotunes and Rashin launchers start their bundled backends when needed. Spot
 
 ### Hyperion v2 edition
 
-Run with `RYOMARKET_EDITION=hyperion` (or set `programs.ryomarket.edition = "hyperion";`) to switch the Ryoku section to the Hyperion v2 packages from `github:Ryoku-dev/Ryoku-on-NixOS/feature/hyperion-v2-nixos`: Ryotunes, RyoStore, Ryoport, RyoManager, RyoMotion and Rashin. These install through your Nix profile only; the bundled installers and legacy RyotunesNix packages are not offered. Ryogami stays part of the Hyperion core.
+Run with `RYOMARKET_EDITION=hyperion` (or set `programs.ryomarket.edition = "hyperion";`) to switch the Ryoku section to the optional Hyperion v2 apps from `github:Ryoku-dev/Ryoku-on-NixOS/feature/hyperion-v2-nixos`: Ryotunes 2.0, Ryoport, RyoManager, waifu2x and QMK HID, the same set Arch Hyperion treats as optional. They install through your Nix profile only; the bundled installers and legacy RyotunesNix packages are not offered. Ryogami, the shell and RyoStore are part of the Hyperion core, and the retired RyoMotion is not offered.
 
 ## NixOS configuration
 

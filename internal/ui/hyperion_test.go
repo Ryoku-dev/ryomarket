@@ -16,7 +16,7 @@ func TestRyokuCollectionFollowsEdition(t *testing.T) {
 
 	t.Setenv("RYOMARKET_EDITION", "hyperion")
 	title, ids = ryokuCollection()
-	if title != "From Ryoku Hyperion" || len(ids) != 6 {
+	if title != "From Ryoku Hyperion" || strings.Join(ids, ",") != "ryoku:ryotunes,ryoku:ryoport,ryoku:ryomanager,ryoku:waifu2x-ncnn-vulkan,ryoku:qmk-hid" {
 		t.Fatalf("Hyperion collection: %s %v", title, ids)
 	}
 	seen := map[string]bool{}

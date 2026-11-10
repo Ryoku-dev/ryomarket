@@ -33,7 +33,7 @@ func TestHyperionApplications(t *testing.T) {
 	t.Setenv("RYOMARKET_EDITION", "hyperion")
 	t.Setenv("RYOMARKET_APPS_FLAKE", "path:/nix/store/packaged-source?narHash=sha256-test")
 	apps := RyokuApplications()
-	want := map[string]bool{"ryoku:ryotunes": true, "ryoku:ryostore": true, "ryoku:ryoport": true, "ryoku:ryomanager": true, "ryoku:ryomotion": true, "ryoku:rashin": true}
+	want := map[string]bool{"ryoku:ryotunes": true, "ryoku:ryoport": true, "ryoku:ryomanager": true, "ryoku:waifu2x-ncnn-vulkan": true, "ryoku:qmk-hid": true}
 	if len(apps) != len(want) {
 		t.Fatalf("expected %d Hyperion applications, got %d", len(want), len(apps))
 	}
@@ -46,14 +46,17 @@ func TestHyperionApplications(t *testing.T) {
 		if !want[app.ID] {
 			t.Fatalf("unexpected application %s", app.ID)
 		}
-		if app.ID == "ryoku:ryogami" {
-			t.Fatal("essential Ryogami must not become optional")
+		switch app.ID {
+		case "ryoku:ryogami", "ryoku:ryostore":
+			t.Fatalf("core %s must not become optional", app.ID)
+		case "ryoku:ryomotion":
+			t.Fatal("retired RyoMotion must not be offered")
 		}
 		if err := validateApp(app); err != nil {
 			t.Fatalf("%s: %v", app.ID, err)
 		}
 		for _, text := range []string{app.Homepage, app.Description, app.Ecosystem.Reason} {
-			if strings.Contains(text, "RyotunesNix") || strings.Contains(text, "1.2.3") {
+			if strings.Contains(text, "RyotunesNix") || strings.Contains(text, "1.2.3") || strings.Contains(text, "QML launcher") {
 				t.Fatalf("%s references legacy Ryotunes: %q", app.ID, text)
 			}
 		}
